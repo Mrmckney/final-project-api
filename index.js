@@ -1,15 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const fetch = require('node-fetch')
 require('dotenv/config')
-const { APIKEY } = require('./config')
+// const { APIKEY } = require('./config')
+// const fetch = require('node-fetch')
+// const Game = require('./src/models/gameModel')
 
 const app = express()
+const router = express.Router()
 app.use(cors())
 app.use(express.json())
+app.use("/", router)
 
-mongoose
+const db = mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -22,30 +25,40 @@ mongoose
   })
   .catch(err => alert(err))
 
-//   app.get('/import/game', setGames)
+// app.get('/import/game', setGames)
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello World')
+// })
 
-app.get('/game', (req, res) => {
-    res.send(
-        fetch(`https://api.rawg.io/api/games?key=${APIKEY}`)
-        .then(response => response.json())
-        .then(gameResults => console.log(gameResults))
-    
-        .catch(err => alert(err))
-    )
-})
 
-gameResults.forEach(game => {
-    let newGame = {
-        slug: game.slug,
-        rawgid: game.id,
-        name: game.name,
-        poster: game.background_image,
-        rating: game.rating,
-        releaseDate: game.released,
-        genres: game.genres.map(g => g.name)
-    }
-})
+// const gameRoute = require('./src/routes/gameRoute')
+// app.use(gameRoute)
+
+// function getGames(page) {
+//   fetch(`https://api.rawg.io/api/games?key=${APIKEY}&page=${page}`)
+//         .then(response => response.json())
+//         .then(gameResults => {
+//           const bulkGames = gameResults.results.map(game => {
+//             return {
+//                 slug: game.slug,
+//                 rawgid: game.id,
+//                 name: game.name,
+//                 poster: game.background_image,
+//                 rating: game.rating,
+//                 releaseDate: game.released,
+//                 genres: game.genres.map(g => g.name),
+//                 platforms: game.platforms.map(g => g.platform.name)
+//               }
+//             })
+//           Game.insertMany(bulkGames)
+//         })
+//         .catch(err => console.log(err))
+// }
+
+// app.get('/game', (req, res) => {
+//     for(let i=0; i < 11300; i++){
+//       getGames(i)
+//     }
+//     res.send('OK')
+// })
