@@ -2,9 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv/config')
-// const { APIKEY } = require('./config')
 // const fetch = require('node-fetch')
-// const Game = require('./src/models/gameModel')
+
 
 const app = express()
 const router = express.Router()
@@ -25,15 +24,13 @@ const db = mongoose
   })
   .catch(err => alert(err))
 
-// app.get('/import/game', setGames)
-
-// app.get('/', (req, res) => {
-//     res.send('Hello World')
-// })
+const userRoute = require('./src/routes/userRoutes')
+app.use(userRoute)
 
 
-// const gameRoute = require('./src/routes/gameRoute')
-// app.use(gameRoute)
+
+
+
 
 // function getGames(page) {
 //   fetch(`https://api.rawg.io/api/games?key=${APIKEY}&page=${page}`)
