@@ -32,8 +32,20 @@ app.get('/game', (req, res) => {
     res.send(
         fetch(`https://api.rawg.io/api/games?key=${APIKEY}`)
         .then(response => response.json())
-        .then(json => console.log())
+        .then(gameResults => console.log(gameResults))
     
         .catch(err => alert(err))
     )
+})
+
+gameResults.forEach(game => {
+    let newGame = {
+        slug: game.slug,
+        rawgid: game.id,
+        name: game.name,
+        poster: game.background_image,
+        rating: game.rating,
+        releaseDate: game.released,
+        genres: game.genres.map(g => g.name)
+    }
 })
