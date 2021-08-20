@@ -27,6 +27,8 @@ mongoose
 const userRoute = require('./src/routes/userRoutes')
 app.use(userRoute)
 
+const gameRoute = require('./src/routes/gameRoutes')
+app.use(gameRoute)
 
 
 
