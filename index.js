@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 app.use("/", router)
 
-const db = mongoose
+mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
