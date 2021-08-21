@@ -1,7 +1,7 @@
 const Game = require('../models/gameModel')
 
 exports.getTopGames = (req, res) => {
-    Game.find().sort({}).limit(20).exec()
+    Game.find().sort({}).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
@@ -11,7 +11,7 @@ exports.getTopGames = (req, res) => {
 
 
 exports.getTopRatedGames = (req, res) => {
-    Game.find().sort({rating: -1}).limit(20).exec()
+    Game.find().sort({rating: -1}).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
