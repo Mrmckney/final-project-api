@@ -43,3 +43,16 @@ exports.loginUser = (req, res ) => {
       })
       .catch(err => res.status(500).send(err))
 }
+
+exports.addFavorite = (req, res) => {
+    // User.findOneAndUpdate({name: req.params.name})
+}
+
+exports.getFavorites = (req, res) => {
+    // User.find().sort({favorites: -1}).exec()
+    // .then(games => res.send(games))
+    // .catch(err => res.send({
+    //     message: err.message,
+    //     status: 500
+    // }))
+}

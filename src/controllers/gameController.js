@@ -20,11 +20,16 @@ exports.getTopRatedGames = (req, res) => {
 }
 
 
-exports.getByGenre = (req, res) => {
-
+exports.getFutureReleases = (req, res) => {
+    Game.find().sort({releaseDate: -1}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
 }
 
 
-exports.getFavorites = (req, res) => {
-    
+exports.getByGenre = (req, res) => {
+
 }
