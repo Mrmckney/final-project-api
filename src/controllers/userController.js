@@ -45,14 +45,33 @@ exports.loginUser = (req, res ) => {
 }
 
 exports.addFavorite = (req, res) => {
-    // User.findOneAndUpdate({favorites: req.params.name})
+    const token = req.headers.authorization.split(' ')[1]
+    if(!token) {
+        res.status(403)
+        .send({
+            status: 403,
+            message: 'Access denied: no token provided'
+        })
+        return
+    }
+    const decoded = jwt.verify(token, secret)
+    User
+    .findOneAndUpdate(decoded.favorites, {$set: {favorites: req.body}})
+    .then(() => res.status(200).send({
+        message: "Favorite added",
+        status: 200
+    }))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
 }
 
 exports.getFavorites = (req, res) => {
-    // User.find().sort({favorites: -1}).exec()
-    // .then(games => res.send(games))
-    // .catch(err => res.send({
-    //     message: err.message,
-    //     status: 500
-    // }))
+    User.find({favorites: req.body}).sort().exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
 }
