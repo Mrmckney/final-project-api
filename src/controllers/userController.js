@@ -56,7 +56,7 @@ exports.addFavorite = (req, res) => {
     }
     const decoded = jwt.verify(token, secret)
     User
-    .findOneAndUpdate(decoded.favorites, {$set: {favorites: req.body}})
+    .findOneAndUpdate(decoded.favorites, {favorites: req.body})
     .then(() => res.status(200).send({
         message: "Favorite added",
         status: 200
@@ -68,8 +68,10 @@ exports.addFavorite = (req, res) => {
 }
 
 exports.getFavorites = (req, res) => {
-    User.find({favorites: req.body}).sort().exec()
-    .then(games => res.send(games))
+    User.findOne({}).exec()
+    .then(games => {
+        res.send(games)
+    })
     .catch(err => res.send({
         message: err.message,
         status: 500

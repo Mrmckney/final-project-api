@@ -29,6 +29,15 @@ exports.getFutureReleases = (req, res) => {
     }))
 }
 
+exports.getAlphabeticalGames = (req, res) => {
+    Game.find().sort({genres: -1}).skip(4).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
 
 exports.getByGenre = (req, res) => {
     Game.find({ genres: req.params.genre}).limit(100).exec()

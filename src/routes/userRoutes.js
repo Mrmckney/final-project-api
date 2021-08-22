@@ -9,6 +9,4 @@ router.post('/login', userController.loginUser)
 
 router.patch('/addfav', userController.addFavorite)
 
-// router.patch('/favorite', userController.patchUser)
-
 module.exports = router
