@@ -31,5 +31,10 @@ exports.getFutureReleases = (req, res) => {
 
 
 exports.getByGenre = (req, res) => {
-
+    Game.find({ genres: req.params.genre}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
 }

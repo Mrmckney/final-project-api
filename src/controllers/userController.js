@@ -45,7 +45,7 @@ exports.loginUser = (req, res ) => {
 }
 
 exports.addFavorite = (req, res) => {
-    // User.findOneAndUpdate({name: req.params.name})
+    // User.findOneAndUpdate({favorites: req.params.name})
 }
 
 exports.getFavorites = (req, res) => {
