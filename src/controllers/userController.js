@@ -50,27 +50,40 @@ exports.addFavorite = (req, res) => {
         res.status(403)
         .send({
             status: 403,
-            message: 'Access denied: no token provided'
+            message: 'Access denied'
         })
         return
     }
     const decoded = jwt.verify(token, secret)
     User
-    .findOneAndUpdate(decoded.favorites, {favorites: req.body})
+    .findOneAndUpdate(decoded.user.favorites, {$addToSet: {favorites: req.body}})
     .then(() => res.status(200).send({
         message: "Favorite added",
         status: 200
     }))
     .catch(err => res.send({
         message: err.message,
-        status: 500
+        status: 500 
     }))
 }
 
 exports.getFavorites = (req, res) => {
-    User.findOne({}).exec()
-    .then(games => {
-        res.send(games)
+    const token = req.headers.authorization.split(' ')[1]
+    if(!token) {
+        res.status(403)
+        .send({
+            status: 403,
+            message: 'Access denied'
+        })
+        return
+    }
+    const decoded = jwt.verify(token, secret)
+    console.log(decoded)
+    User.findOne(decoded.user.favorites).exec()
+    .then(user => {
+        res.send({
+            favorites: user.favorites
+        })
     })
     .catch(err => res.send({
         message: err.message,
