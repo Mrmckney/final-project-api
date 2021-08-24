@@ -101,9 +101,11 @@ exports.deleteFav = (req, res) => {
     const decoded = jwt.verify(token, secret)
     User.findOneAndUpdate({'username': decoded.user.username}, {$pull: {favorites: req.body}})
     .then(data => {
-        res.send({
-            message: 'Removed Favorite',
-            favorites: data.favorites
+        User.findOne({'username': decoded.user.username}).then((data) => {  
+            res.send({
+                message: 'Removed Favorite',
+                favorites: data.favorites
+            })
         })
     })
     .catch(err => res.send({
