@@ -24,21 +24,23 @@ exports.loginUser = (req, res ) => {
     User.findOne({ username: req.body.username })
     .then(user => {
         if (!user || user.password !== req.body.password) {
-            return res.send({
+            res.send({
                 message: 'Login Attempt Failed',
                 status: 401
             })
+            return
         }
         if (user && user.password === req.body.password) {
             let responseData = user
             responseData.password = undefined
             const token = jwt.sign({user}, secret)
-          res.status(200).send(res.send({
+          res.status(200).send({
             message: "User login successful",
             status: 200,
             user: responseData,
             token
-        }))
+          })
+            return
         } 
       })
       .catch(err => res.status(500).send(err))
