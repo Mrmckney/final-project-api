@@ -87,3 +87,27 @@ exports.getFavorites = (req, res) => {
         status: 500
     }))
 }
+
+exports.deleteFav = (req, res) => {
+    const token = req.headers.authorization.split(' ')[1]
+    if(!token) {
+        res.status(403)
+        .send({
+            status: 403,
+            message: 'Access denied'
+        })
+        return
+    }
+    const decoded = jwt.verify(token, secret)
+    User.findOneAndUpdate({'username': decoded.user.username}, {$pull: {favorites: req.body}})
+    .then(data => {
+        res.send({
+            message: 'Removed Favorite',
+            favorites: data.favorites
+        })
+    })
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}

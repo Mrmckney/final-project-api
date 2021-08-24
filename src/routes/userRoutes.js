@@ -9,5 +9,7 @@ router.post('/login', userController.loginUser)
 
 router.patch('/addfav', userController.addFavorite)
 
+router.patch('/deletefav', userController.deleteFav)
+
 
 module.exports = router
