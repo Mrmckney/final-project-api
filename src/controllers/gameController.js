@@ -47,3 +47,22 @@ exports.getByGenre = (req, res) => {
         status: 500
     }))
 }
+
+exports.getPlatformGames = (req, res) => {
+    Game.find().sort({platform: -1}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
+
+exports.getByPlatform = (req, res) => {
+    Game.find({ platforms: req.params.platform}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
