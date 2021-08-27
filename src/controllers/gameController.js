@@ -66,3 +66,33 @@ exports.getByPlatform = (req, res) => {
         status: 500
     }))
 }
+
+exports.getSearchResults = (req, res) => {
+    Game.aggregate([
+        {
+          "$search": {
+            "index": 'game',
+            "text": {
+              "query": `${req.query.query}`,
+              "path": {
+                'wildcard': '*'
+              }
+            }
+          }
+        }
+      ]).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
+exports.getBySearch = (req, res) => {
+    Game.find().sort({slug: -1}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
