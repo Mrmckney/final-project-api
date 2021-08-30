@@ -96,3 +96,13 @@ exports.getBySearch = (req, res) => {
         status: 500
     }))
 }
+
+
+exports.getRawgId = (req, res) => {
+    Game.find().sort({releaseDate: 1}).skip(8055).limit(20).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
