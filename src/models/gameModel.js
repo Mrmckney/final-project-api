@@ -8,7 +8,9 @@ const GameSchema = mongoose.Schema({
     rating: Number,
     releaseDate: String,
     genres: Array,
-    platforms: Array
+    platforms: Array,
+    tags: Array,
+    esrb: Object
 })
 
 module.exports = mongoose.model('Game', GameSchema)

@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv/config')
 // const fetch = require('node-fetch')
+// const Game = require('./src/models/gameModel')
 
 
 const app = express()
@@ -33,7 +34,6 @@ app.use(gameRoute)
 
 
 
-
 // function getGames(page) {
 //   fetch(`https://api.rawg.io/api/games?key=${APIKEY}&page=${page}`)
 //         .then(response => response.json())
@@ -47,7 +47,9 @@ app.use(gameRoute)
 //                 rating: game.rating,
 //                 releaseDate: game.released,
 //                 genres: game.genres.map(g => g.name),
-//                 platforms: game.platforms.map(g => g.platform.name)
+//                 platforms: game.platforms.map(g => g.platform.name),
+//                 tags: game.tags.map(g => g.name),
+//                 esrb: game.esrb_rating,
 //               }
 //             })
 //           Game.insertMany(bulkGames)
@@ -56,8 +58,8 @@ app.use(gameRoute)
 // }
 
 // app.get('/game', (req, res) => {
-//     for(let i=0; i < 11300; i++){
-//       getGames(i)
-//     }
-//     res.send('OK')
+//   for(let i=19400; i < 19600; i++){
+//     getGames(i)
+//   }
+//   res.send('OK')
 // })
