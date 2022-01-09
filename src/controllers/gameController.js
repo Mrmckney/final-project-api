@@ -21,7 +21,7 @@ exports.getTopRatedGames = (req, res) => {
 
 
 exports.getFutureReleases = (req, res) => {
-    Game.find().sort({releaseDate: -1}).limit(100).exec()
+    Game.find().sort({releaseDate: -1}).skip(23).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
