@@ -10,9 +10,11 @@ router.get('/platform', gameController.getPlatformGames)
 router.get('/search', gameController.getBySearch)
 router.get('/rawgid', gameController.getRawgId)
 router.get('/tag', gameController.getTag)
+router.get('/esrb', gameController. getEsrb)
 router.get('/bygenre/:genre', gameController.getByGenre)
 router.get('/byplatform/:platform', gameController.getByPlatform)
 router.get('/bytag/:tag', gameController.getByTag)
+router.get('/byesrb/:esrb', gameController.getByEsrb)
 router.get('/search/:name', gameController.getSearchResults)
 
 

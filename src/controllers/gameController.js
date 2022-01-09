@@ -40,7 +40,7 @@ exports.getAlphabeticalGames = (req, res) => {
 
 
 exports.getByGenre = (req, res) => {
-    Game.find({ genres: req.params.genre}).limit(100).exec()
+    Game.find({ genres: req.params.genre }).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
@@ -59,7 +59,7 @@ exports.getPlatformGames = (req, res) => {
 
 
 exports.getByPlatform = (req, res) => {
-    Game.find({ platforms: req.params.platform}).limit(100).exec()
+    Game.find({ platforms: req.params.platform }).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
@@ -107,12 +107,39 @@ exports.getTag = (req, res) => {
 }
 
 exports.getByTag = (req, res) => {
-    Game.find({ tags: req.params.tag}).limit(100).exec()
+    Game.find({ tags: req.params.tag }).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
         status: 500
     }))
+}
+
+exports.getEsrb = (req, res) => {
+    Game.find().sort({esrb: -1}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
+exports.getByEsrb = (req, res) => {
+    if(req.params.esrb === "Unrated"){
+        Game.find({esrb: null}).limit(100).exec()
+        .then(games => res.send(games))
+        .catch(err => res.send({
+            message: err.message,
+            status: 500
+        }))
+    } else {
+        Game.find({"esrb.name": req.params.esrb}).limit(100).exec()
+        .then(games => res.send(games))
+        .catch(err => res.send({
+            message: err.message,
+            status: 500
+        }))
+    }
 }
 
 
