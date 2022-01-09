@@ -71,7 +71,7 @@ exports.getSearchResults = (req, res) => {
     Game.aggregate([
         {
           "$search": {
-            "index": 'game',
+            "index": 'search',
             "text": {
               "query": `${req.query.query}`,
               "path": {
