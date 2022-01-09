@@ -82,6 +82,8 @@ exports.getFavorites = (req, res) => {
     const decoded = jwt.verify(token, secret)
     User.findOne({'username': decoded.user.username})
     .then(data => {
+        data.password = null
+        data.username = null
         res.send(data)
     })
     .catch(err => res.send({

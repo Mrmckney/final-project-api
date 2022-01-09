@@ -97,9 +97,27 @@ exports.getBySearch = (req, res) => {
     }))
 }
 
+exports.getTag = (req, res) => {
+    Game.find().sort({tag: 1}).skip(100).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
+exports.getByTag = (req, res) => {
+    Game.find({ tags: req.params.tag}).limit(100).exec()
+    .then(games => res.send(games))
+    .catch(err => res.send({
+        message: err.message,
+        status: 500
+    }))
+}
+
 
 exports.getRawgId = (req, res) => {
-    Game.find().sort({releaseDate: 1}).skip(8055).limit(20).exec()
+    Game.find().sort({releaseDate: 1}).skip(9813).limit(20).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
