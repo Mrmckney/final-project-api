@@ -80,7 +80,7 @@ exports.getSearchResults = (req, res) => {
             }
           }
         }
-      ]).sort(_id).limit(100).exec()
+      ]).limit(100).exec()
     .then(games => res.send(games))
     .catch(err => res.send({
         message: err.message,
