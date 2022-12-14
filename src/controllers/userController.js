@@ -24,7 +24,7 @@ exports.loginUser = (req, res ) => {
     User.findOne({ username: req.body.username })
     .then(user => {
         if (!user || user.password !== req.body.password) {
-            res.send({
+            res.status(401).send({
                 message: 'Login Attempt Failed',
                 status: 401
             })
@@ -63,7 +63,7 @@ exports.addFavorite = (req, res) => {
         message: "Favorite added",
         status: 200
     }))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500 
     }))
@@ -86,7 +86,7 @@ exports.getFavorites = (req, res) => {
         data.username = null
         res.send(data)
     })
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -112,7 +112,7 @@ exports.deleteFav = (req, res) => {
             })
         })
     })
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))

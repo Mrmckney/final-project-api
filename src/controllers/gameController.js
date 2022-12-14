@@ -3,7 +3,7 @@ const Game = require('../models/gameModel')
 exports.getTopGames = (req, res) => {
     Game.find().sort({}).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -13,7 +13,7 @@ exports.getTopGames = (req, res) => {
 exports.getTopRatedGames = (req, res) => {
     Game.find().sort({rating: -1}).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -23,7 +23,7 @@ exports.getTopRatedGames = (req, res) => {
 exports.getFutureReleases = (req, res) => {
     Game.find().sort({releaseDate: -1}).skip(23).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -32,7 +32,7 @@ exports.getFutureReleases = (req, res) => {
 exports.getAlphabeticalGames = (req, res) => {
     Game.find().sort({genres: -1}).skip(4).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -42,7 +42,7 @@ exports.getAlphabeticalGames = (req, res) => {
 exports.getByGenre = (req, res) => {
     Game.find({ genres: req.params.genre }).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -51,7 +51,7 @@ exports.getByGenre = (req, res) => {
 exports.getPlatformGames = (req, res) => {
     Game.find().sort({platform: -1}).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -61,7 +61,7 @@ exports.getPlatformGames = (req, res) => {
 exports.getByPlatform = (req, res) => {
     Game.find({ platforms: req.params.platform }).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -82,7 +82,7 @@ exports.getSearchResults = (req, res) => {
         }
       ]).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -91,7 +91,7 @@ exports.getSearchResults = (req, res) => {
 exports.getBySearch = (req, res) => {
     Game.find().sort({slug: -1}).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -100,7 +100,7 @@ exports.getBySearch = (req, res) => {
 exports.getTag = (req, res) => {
     Game.find().sort({tag: 1}).skip(100).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -109,7 +109,7 @@ exports.getTag = (req, res) => {
 exports.getByTag = (req, res) => {
     Game.find({ tags: req.params.tag }).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -118,7 +118,7 @@ exports.getByTag = (req, res) => {
 exports.getEsrb = (req, res) => {
     Game.find().sort({esrb: -1}).limit(100).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
@@ -128,14 +128,14 @@ exports.getByEsrb = (req, res) => {
     if(req.params.esrb === "Unrated"){
         Game.find({esrb: null}).limit(100).exec()
         .then(games => res.send(games))
-        .catch(err => res.send({
+        .catch(err => res.status(500).send({
             message: err.message,
             status: 500
         }))
     } else {
         Game.find({"esrb.name": req.params.esrb}).limit(100).exec()
         .then(games => res.send(games))
-        .catch(err => res.send({
+        .catch(err => res.status(500).send({
             message: err.message,
             status: 500
         }))
@@ -146,7 +146,7 @@ exports.getByEsrb = (req, res) => {
 exports.getRawgId = (req, res) => {
     Game.find().sort({releaseDate: 1}).skip(9813).limit(20).exec()
     .then(games => res.send(games))
-    .catch(err => res.send({
+    .catch(err => res.status(500).send({
         message: err.message,
         status: 500
     }))
