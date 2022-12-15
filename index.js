@@ -2,8 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv/config')
-// const fetch = require('node-fetch')
-// const Game = require('./src/models/gameModel')
+const fetch = require('node-fetch')
+const Game = require('./src/models/gameModel')
 
 
 const app = express()
@@ -34,32 +34,19 @@ app.use(gameRoute)
 
 
 
-// function getGames(page) {
-//   fetch(`https://api.rawg.io/api/games?key=${APIKEY}&page=${page}`)
-//         .then(response => response.json())
-//         .then(gameResults => {
-//           const bulkGames = gameResults.results.map(game => {
-//             return {
-//                 slug: game.slug,
-//                 rawgid: game.id,
-//                 name: game.name,
-//                 poster: game.background_image,
-//                 rating: game.rating,
-//                 releaseDate: game.released,
-//                 genres: game.genres.map(g => g.name),
-//                 platforms: game.platforms.map(g => g.platform.name),
-//                 tags: game.tags.map(g => g.name),
-//                 esrb: game.esrb_rating,
-//               }
-//             })
-//           Game.insertMany(bulkGames)
-//         })
-//         .catch(err => console.log(err))
-// }
+async function getGames(page) {
+    const data = await fetch(`https://api.rawg.io/api/games?key=0c50be38d7484e3c83066695e70abfe8&page=${page}&page_size=40`)
+    const gameResults = await data.json()
+    const bulkGames = gameResults.results.map(game => {return game})
+    return Game.insertMany(bulkGames)
+}
 
-// app.get('/game', (req, res) => {
-//   for(let i=19400; i < 19600; i++){
-//     getGames(i)
-//   }
-//   res.send('OK')
-// })
+// make sure to re-run
+app.get('/game', (req, res) => {
+  let pageNum = 0
+  for(let i = 13980; i < 14000; i++){
+    pageNum = i
+    getGames(i)
+  }
+  res.send(`Got games ${pageNum}`)
+})
