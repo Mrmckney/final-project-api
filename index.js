@@ -19,7 +19,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    app.listen('5000', () => {
+    app.listen('4000', () => {
       console.log('our app is listening on port 5000')
     })
   })

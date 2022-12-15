@@ -74,9 +74,7 @@ exports.getSearchResults = (req, res) => {
             "index": 'search',
             "text": {
               "query": `${req.query.query}`,
-              "path": {
-                'wildcard': '*'
-              }
+              "path": 'name'
             }
           }
         }
